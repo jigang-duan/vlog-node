@@ -1,0 +1,26 @@
+{
+  "name": "demo-sequelize-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "midway": "^1.0.0",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.41.0",
+    "sequelize-typescript": "^0.6.6"
+  },
+  "devDependencies": {
+    "midway-bin": "1",
+    "midway-demo-lib": "1"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=local midway-bin dev --ts",
+    "debug": "NODE_ENV=local midway-bin debug --ts",
+    "test": "midway-bin test --ts",
+    "cov": "midway-bin cov --ts",
+    "ci": "midway-bin cov --ts",
+    "build": "midway-bin build -c"
+  }
+}
