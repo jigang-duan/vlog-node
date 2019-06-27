@@ -58,3 +58,32 @@ export interface ICategoryListResult {
 export interface ICategoryService {
   list(userId?: string): Promise<ICategoryListResult>;
 }
+
+
+// weapp
+
+export interface IWeappConfig {
+  appId: string;
+  appSecret: string;
+}
+
+export interface IWeappError {
+  errcode: number;
+  errmsg: string;
+}
+
+export interface IWeappService {
+}
+
+export class ErrorResult extends Error {
+  status?: number;
+  message: string;
+  errors?: string;
+
+  constructor(message: string, status: number = 500, errors?: string) {
+    super(message)
+    this.message = message;
+    this.status = status
+    this.errors = errors
+  }
+}

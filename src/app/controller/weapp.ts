@@ -1,19 +1,13 @@
 import { controller, get, config, provide } from 'midway';
+import { stringify } from 'qs';
+import { IWeappConfig, ErrorResult } from '../../interface';
 
-function _code2SessionUrl(config: IWeappConfig, jscode: string): string {
-  const apiUrl = 'https://api.weixin.qq.com/sns/jscode2session';
-  const { appId, appSecret } = config;
-  const params = `?appid=${appId}&secret=${appSecret}&js_code=${jscode}&grant_type=authorization_code`;
-  return `${apiUrl}${params}`;
-}
-
-interface IWeappConfig {
-  appId: string;
-  appSecret: string;
-}
+const wxCodeRule = {
+  code: 'string',
+};
 
 @provide()
-@controller('/weapp')
+@controller('/weapp', {middleware: ['errorMiddleware']})
 export class WeappController {
 
   @config('weapp')
@@ -21,7 +15,23 @@ export class WeappController {
 
   @get('/openid')
   async getOpenid(ctx) {
-    console.info(_code2SessionUrl(this.config, ctx.query.code));
+    ctx.validate(wxCodeRule, ctx.query);
+
+    const baseUrl = 'https://api.weixin.qq.com/sns/jscode2session';
+    const { appId, appSecret } = this.config;
+    const params = {
+      app_id: appId,
+      secret: appSecret,
+      js_code: ctx.query.code,
+      grant_type: 'authorization_code'
+    }
+    const apiUrl = `${baseUrl}?${stringify(params)}`
+    const req = await ctx.httpclient.curl(apiUrl);
+    const data = JSON.parse(req.data.toString());
+    ctx.body = data;
+    if (data.errcode && data.errcode > 0) {
+      throw new ErrorResult(`errcode[${data.errcode}]`, 510, data.errmsg)
+    }
   }
 
 }

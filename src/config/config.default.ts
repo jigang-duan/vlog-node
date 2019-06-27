@@ -19,7 +19,12 @@ module.exports = (appInfo: any) => {
   config.weapp = {
     appId: 'wx7e1b1178f0bfab87',
     appSecret: 'e3ab684fc8e854c7f0080e81ed390ce0'
-  }
+  };
+
+  config.validate = {
+    // convert: false,
+    // validateRoot: false,
+  };
 
   // close csrf for unit test
   config.security = {
