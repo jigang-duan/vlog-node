@@ -12,7 +12,7 @@ module.exports = (appInfo: any) => {
     port: '8889',
     user: 'root',
     password: 'root',
-    database: 'vlog',
+    database: 'vlog_dev',
     dialect: 'mysql',
   };
 
@@ -24,6 +24,17 @@ module.exports = (appInfo: any) => {
   config.validate = {
     // convert: false,
     // validateRoot: false,
+  };
+
+  config.view = {
+    defaultViewEngine: 'ejs',
+    mapping: {
+      '.ejs': 'ejs',
+    },
+  };
+
+  config.multipart = {
+    mode: 'file',
   };
 
   // close csrf for unit test

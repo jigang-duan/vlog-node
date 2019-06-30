@@ -20,7 +20,7 @@ export class WeappController {
     const baseUrl = 'https://api.weixin.qq.com/sns/jscode2session';
     const { appId, appSecret } = this.config;
     const params = {
-      app_id: appId,
+      appid: appId,
       secret: appSecret,
       js_code: ctx.query.code,
       grant_type: 'authorization_code'

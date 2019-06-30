@@ -3,15 +3,15 @@ import { providerWrapper } from 'midway';
 
 const {STRING, INTEGER, BIGINT} = DataType;
 
-export const factory = () => CategoryModel;
+export const factory = () => TrophyModel;
 providerWrapper([
   {
-    id: 'CategoryModel',
+    id: 'TrophyModel',
     provider: factory,
   },
 ]);
 
-export type ICategoryModel = typeof CategoryModel;
+export type ITrophyModel = typeof TrophyModel;
 
 @Scopes({
   // a self-defined scope means "non-soft-deleted rows"
@@ -22,9 +22,9 @@ export type ICategoryModel = typeof CategoryModel;
 @Table({
   // you can claim your tableName explicitly
   freezeTableName: true,
-  tableName: 'vlog_categories',
+  tableName: 'vlog_trophies',
 })
-export class CategoryModel extends Model<CategoryModel> {
+export class TrophyModel extends Model<TrophyModel> {
   @Column({
     type: BIGINT(20),
     primaryKey: true,
@@ -36,31 +36,29 @@ export class CategoryModel extends Model<CategoryModel> {
   @Column({
     type: STRING(255),
     field: 'user_id',
-    comment: '关联的用户ID',
+    comment: '用户ID',
   })
   userId: string;
 
   @Column({
-    type: STRING(64),
+    type: STRING(32),
+    comment: '类型: favor & collect & follow',
+  })
+  type: string;
+
+  @Column({
+    type: STRING(255),
+    field: 'related_user_id',
+    comment: '关联的用户ID',
+  })
+  relatedUserId: string;
+
+  @Column({
+    type: BIGINT(20),
+    field: 'related_food_id',
     allowNull: false,
-    comment: '分类标题',
   })
-  title: string;
-
-  @Column({
-    type: STRING(1024),
-    allowNull: true,
-    comment: '分类描述',
-  })
-  desc: string;
-
-  @Column({
-    type: STRING(1024),
-    field: 'icon_url',
-    allowNull: true,
-    comment: '分类Icon',
-  })
-  iconUrl: string;
+  relatedFoodId: number;
 
   @Column({
     type: INTEGER(11),

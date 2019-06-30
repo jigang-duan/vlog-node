@@ -45,7 +45,7 @@ export interface ICategoryResult {
   id: number;
   title: string;
   desc: string;
-  icon: string,
+  iconUrl: string;
   createdTime: Date;
   modifiedTime: Date;
 }
@@ -55,10 +55,112 @@ export interface ICategoryListResult {
   totalCount: number;
 }
 
-export interface ICategoryService {
-  list(userId?: string): Promise<ICategoryListResult>;
+export interface ICategoryCreateOptions {
+  title: string;
+  desc: string;
+  iconUrl: string;
+  userId: string;
 }
 
+export interface ICategoryService {
+  list(userId?: string): Promise<ICategoryListResult>;
+  create(options: ICategoryCreateOptions): Promise<number>;
+}
+
+export interface IUserResult {
+  id: string;
+  avatarUrl?: string;
+  nickName?: string;
+  gender?: number;
+  language?: string;
+  country?: string;
+  city?: string;
+  province?: string;
+}
+
+export interface IFoodItemResult {
+  id: number;
+  type: string;
+  title: string;
+  desc: string;
+  imageUrl: string;
+  vid?: string;
+  videoUrl?: string;
+  createdTime: Date;
+  modifiedTime: Date;
+}
+
+export interface IFoodCommentResult {
+  id: number;
+  author: IUserResult;
+  content: string;
+  createdTime: Date;
+  modifiedTime: Date;
+}
+
+export interface IFoodResult {
+  id: number;
+  author: IUserResult;
+  category: ICategoryResult;
+  type: string;
+  tag: string;
+  imageUrl: string;
+  desc: string;
+  isShared: boolean;
+  items: IFoodItemResult[];
+  comments: IFoodCommentResult[];
+  createdTime: Date;
+  modifiedTime: Date;
+}
+
+export interface IFoodListOptions {
+  limit: number;
+  offset: number;
+  authorId?: string;
+  categoryId?: number;
+  isShared?: boolean;
+}
+
+export interface IFoodListResult {
+  offset: number,
+  count: number,
+  total: number;
+  list: IFoodResult[];
+}
+
+export interface IFoodCreateOptions {
+  authorId: string;
+  categoryId: number;
+  type: string;
+  tag: string;
+  imageUrl: string;
+  desc?: string;
+  isShared?: boolean;
+}
+
+export interface IFoodItemAddOptions {
+  type: string;
+  title: string;
+  desc: string;
+  imageUrl: string;
+  vid?: string;
+  videoUrl?: string;
+}
+
+export interface IFoodCommentAddOptions {
+  authorId: string;
+  content: string;
+}
+
+export interface IFoodService {
+  list(options: IFoodListOptions): Promise<IFoodListResult>;
+  create(options: IFoodCreateOptions): Promise<number>;
+  shard(id: number): Promise<boolean>;
+  addItem(id: number, options: IFoodItemAddOptions): Promise<number>;
+  removeItem(id: number, itemId: number): Promise<boolean>;
+  addComment(id: number, options: IFoodCommentAddOptions): Promise<number>;
+  removeComment(id: number, commentId: number): Promise<boolean>;
+}
 
 // weapp
 

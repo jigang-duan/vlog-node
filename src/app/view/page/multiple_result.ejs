@@ -1,0 +1,12 @@
+<%- include('/layouts/header'); -%>
+  <h2>Upload Result</h2>
+  <ul>
+    <% fields.forEach(function(field) { %>
+      <li><%= field.key %>: <%= field.value %></li>
+    <%});%>
+
+    <% files.forEach(function(file) { %>
+      <li><a href="/public/<%= file.filename %>" _target="blank"><%= file.filename %></a></li>
+    <%});%>
+  </ul>
+<%- include('/layouts/footer'); -%>

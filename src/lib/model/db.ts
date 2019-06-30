@@ -1,7 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
 import { provide, scope, ScopeEnum } from 'midway';
-import { PostModel } from './post';
+// import { PostModel } from './post';
 import { CategoryModel } from './category'
+import { UserModel } from './user';
+import { FoodModel } from './food';
+import { FoodItemModel } from './food_item';
+import { CommentModel } from './comment';
+import { TrophyModel } from './trophy';
 
 interface ISequelizeConfig {
   host: string;
@@ -29,18 +34,24 @@ export class DB {
         host: config.host,
         port: config.port,
         timezone: '+08:00',
-        logging: false,
+        logging: true,
         operatorsAliases: false,
       },
     );
 
     // add models here before using them
     DB.sequelize.addModels([
-      PostModel,
-      CategoryModel
+      // PostModel,
+      CategoryModel,
+      UserModel,
+      FoodModel,
+      FoodItemModel,
+      CommentModel,
+      TrophyModel
     ]);
 
     try {
+      // await DB.sequelize.sync({force: true});
       await DB.sequelize.authenticate();
     } catch (error) {
       error.message = `DB connection error: ${error.message}`;

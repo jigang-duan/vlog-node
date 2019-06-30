@@ -1,17 +1,18 @@
-import { DataType, Table, Model, Column, CreatedAt, UpdatedAt, Scopes } from 'sequelize-typescript';
+import { DataType, Table, Model, Column, ForeignKey, CreatedAt, UpdatedAt, Scopes } from 'sequelize-typescript';
 import { providerWrapper } from 'midway';
+import { FoodModel } from './food';
 
 const {STRING, INTEGER, BIGINT} = DataType;
 
-export const factory = () => CategoryModel;
+export const factory = () => FoodItemModel;
 providerWrapper([
   {
-    id: 'CategoryModel',
+    id: 'FoodItemModel',
     provider: factory,
   },
 ]);
 
-export type ICategoryModel = typeof CategoryModel;
+export type IFoodItemModel = typeof FoodItemModel;
 
 @Scopes({
   // a self-defined scope means "non-soft-deleted rows"
@@ -22,45 +23,63 @@ export type ICategoryModel = typeof CategoryModel;
 @Table({
   // you can claim your tableName explicitly
   freezeTableName: true,
-  tableName: 'vlog_categories',
+  tableName: 'vlog_food_items',
 })
-export class CategoryModel extends Model<CategoryModel> {
+export class FoodItemModel extends Model<FoodItemModel> {
   @Column({
     type: BIGINT(20),
     primaryKey: true,
     autoIncrement: true,
-    comment: '分类ID',
   })
   id: number;
 
   @Column({
-    type: STRING(255),
-    field: 'user_id',
-    comment: '关联的用户ID',
+    type: STRING(32),
+    allowNull: false,
   })
-  userId: string;
+  type: string;
 
   @Column({
     type: STRING(64),
     allowNull: false,
-    comment: '分类标题',
+    comment: '标题',
   })
   title: string;
 
   @Column({
     type: STRING(1024),
     allowNull: true,
-    comment: '分类描述',
+    comment: '描述',
   })
   desc: string;
 
   @Column({
     type: STRING(1024),
-    field: 'icon_url',
+    field: 'image_url',
     allowNull: true,
-    comment: '分类Icon',
   })
-  iconUrl: string;
+  imageUrl: string;
+
+  @Column({
+    type: STRING(64),
+    allowNull: true,
+  })
+  vid: string;
+
+  @Column({
+    type: STRING(1024),
+    field: 'video_url',
+    allowNull: true,
+  })
+  videoUrl: string;
+
+  @ForeignKey(() => FoodModel)
+  @Column({
+    type: BIGINT(20),
+    field: 'food_id',
+    allowNull: true,
+  })
+  foodId: number;
 
   @Column({
     type: INTEGER(11),
