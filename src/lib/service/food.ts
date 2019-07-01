@@ -93,10 +93,10 @@ export class FoodService implements IFoodService {
   async list(options: IFoodListOptions): Promise<IFoodListResult> {
     let where = {}
     const { authorId, categoryId, isShared } = options;
-    if (authorId) {
+    if (authorId !== undefined) {
       where['authorId'] = authorId
     }
-    if (authorId) {
+    if (categoryId) {
       where['categoryId'] = categoryId
     }
     if (isShared !== undefined) {

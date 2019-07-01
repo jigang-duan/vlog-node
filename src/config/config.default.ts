@@ -35,6 +35,7 @@ module.exports = (appInfo: any) => {
 
   config.multipart = {
     mode: 'file',
+    fileSize: '50mb',
   };
 
   // close csrf for unit test

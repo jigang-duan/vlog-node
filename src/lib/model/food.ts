@@ -102,6 +102,12 @@ export class FoodModel extends Model<FoodModel> {
   imageUrl: string;
 
   @Column({
+    type: STRING(255),
+    comment: '标题',
+  })
+  title: string;
+
+  @Column({
     type: STRING(1024),
     comment: '描述',
   })

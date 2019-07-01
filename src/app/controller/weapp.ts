@@ -1,6 +1,6 @@
-import { controller, get, config, provide } from 'midway';
+import { controller, get, put, config, inject, provide } from 'midway';
 import { stringify } from 'qs';
-import { IWeappConfig, ErrorResult } from '../../interface';
+import { IWeappConfig, ErrorResult, IUserService } from '../../interface';
 
 const wxCodeRule = {
   code: 'string',
@@ -12,6 +12,9 @@ export class WeappController {
 
   @config('weapp')
   config: IWeappConfig;
+
+  @inject()
+  userService: IUserService;
 
   @get('/openid')
   async getOpenid(ctx) {
@@ -28,10 +31,17 @@ export class WeappController {
     const apiUrl = `${baseUrl}?${stringify(params)}`
     const req = await ctx.httpclient.curl(apiUrl);
     const data = JSON.parse(req.data.toString());
-    ctx.body = data;
     if (data.errcode && data.errcode > 0) {
       throw new ErrorResult(`errcode[${data.errcode}]`, 510, data.errmsg)
     }
+    await this.userService.create(data.openid)
+    ctx.body = data;
+  }
+
+  @put('/users')
+  async updateUserInfo(ctx) {
+    const userId = ctx.headers['x-userid']
+    ctx.body = await this.userService.update(userId, ctx.request.body)
   }
 
 }

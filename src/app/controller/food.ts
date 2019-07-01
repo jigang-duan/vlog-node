@@ -1,4 +1,4 @@
-import { controller, get, post, del, provide, inject } from 'midway';
+import { controller, get, post, del, put, provide, inject } from 'midway';
 import { IFoodService, IFoodListOptions } from '../../interface';
 
 const createRule = {
@@ -7,6 +7,7 @@ const createRule = {
   type: { type: 'enum', values: [ 'theme', 'video' ], required: true },
   tag: 'string',
   imageUrl: 'string',
+  title: 'string',
   desc: { type: 'string', required: false },
   isShared:  { type: 'boolean', required: false },
 };
@@ -18,12 +19,12 @@ const addItemRule = {
   imageUrl: 'string',
   vid: { type: 'string', required: false },
   videoUrl: { type: 'string', required: false },
-}
+};
 
 const addCommentRule = {
   authorId: 'string',
   content: 'string',
-}
+};
 
 @provide()
 @controller('/foods', {middleware: ['errorMiddleware']})
@@ -51,7 +52,19 @@ export class FoodController {
     const authorId = ctx.headers['x-userid']
     const query = {...ctx.request.body, authorId }
     ctx.validate(createRule, query);
-    ctx.body = await this.foodService.create(query);
+    const id = await this.foodService.create(query);
+    const { item } = ctx.request.body;
+    if (ctx.query.withVideo && item) {
+      ctx.validate(addItemRule, item);
+      await this.foodService.addItem(id, item);
+    }
+    ctx.body = id;
+  }
+
+  @put('/:id/shard')
+  async shard(ctx) {
+    const id = ctx.params.id;
+    ctx.body = await this.foodService.shard(id);
   }
 
   @post('/:id/items')

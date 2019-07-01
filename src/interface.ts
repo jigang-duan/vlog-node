@@ -162,6 +162,21 @@ export interface IFoodService {
   removeComment(id: number, commentId: number): Promise<boolean>;
 }
 
+export interface IUserUpdates {
+  avatarUrl: string;
+  city: string;
+  country: string;
+  gender: number;
+  language: string;
+  nickName: string;
+  province: string;
+}
+
+export interface IUserService {
+  create(openId: string): Promise<string>;
+  update(id: string, updates: IUserUpdates): Promise<boolean>;
+}
+
 // weapp
 
 export interface IWeappConfig {
