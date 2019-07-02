@@ -2,6 +2,7 @@ import { controller, get, post, provide } from 'midway';
 import * as fs from 'mz/fs';
 import * as path from 'path';
 import { pump } from 'mz-modules';
+import { getColor } from '../../utils/thmclrx';
 
 @provide()
 @controller('/multipart')
@@ -36,6 +37,33 @@ export class MultipartController {
     }
 
     ctx.body = { url: '/public/' + filename };
+  }
+
+  @get('/color')
+  async color(ctx) {
+    const url = ctx.query.url;
+    const defaultColors = [
+      { color: '#FFFFFF' },
+      { color: '#FFFFFF80' }
+    ];
+    if (!url) {
+      ctx.body =defaultColors;
+      return
+    }
+    const colors = await getColor(url);
+    if (colors.length === 0) {
+      ctx.body =defaultColors;
+    } else if (colors.length >= 2) {
+      ctx.body = [
+        { color: `#${colors[0].color}` },
+        { color: `#${colors[1].color}80` }
+      ];
+    } else if (colors.length === 1) {
+      ctx.body = [
+        { color: `#${colors[0].color}` },
+        { color: '#FFFFFF80' }
+      ];
+    }
   }
 
   @post('/upload')

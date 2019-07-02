@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
     "egg-validate": "^2.0.2",
     "egg-view-ejs": "^2.0.0",
     "midway": "^1.0.0",
@@ -12,7 +11,8 @@
     "mz-modules": "^2.1.0",
     "qs": "^6.7.0",
     "sequelize": "^4.41.0",
-    "sequelize-typescript": "^0.6.6"
+    "sequelize-typescript": "^0.6.6",
+    "thmclrx": "^1.0.0"
   },
   "devDependencies": {
     "midway-bin": "1",
