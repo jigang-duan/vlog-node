@@ -1,6 +1,7 @@
 import { provide, inject } from 'midway';
 import {
   IFoodService,
+  IFoodResult,
   IFoodListOptions,
   IFoodListResult,
   IFoodCreateOptions,
@@ -88,6 +89,12 @@ export class FoodService implements IFoodService {
 
     // affected rows should greater than 0
     return softDeleteResult[0] > 0;
+  }
+
+  async find(id: number): Promise<IFoodResult> {
+    return this.FoodModel
+    .scope('avaliable')
+    .findByPrimary(id);
   }
 
   async list(options: IFoodListOptions): Promise<IFoodListResult> {

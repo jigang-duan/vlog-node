@@ -154,6 +154,7 @@ export interface IFoodCommentAddOptions {
 
 export interface IFoodService {
   list(options: IFoodListOptions): Promise<IFoodListResult>;
+  find(id: number): Promise<IFoodResult>;
   create(options: IFoodCreateOptions): Promise<number>;
   shard(id: number): Promise<boolean>;
   addItem(id: number, options: IFoodItemAddOptions): Promise<number>;

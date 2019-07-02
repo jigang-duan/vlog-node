@@ -47,6 +47,11 @@ export class FoodController {
     ctx.body = result
   }
 
+  @get('/:id')
+  async show(ctx) {
+    ctx.body = await this.foodService.find(parseInt(ctx.params.id));
+  }
+
   @post('/')
   async create(ctx) {
     const authorId = ctx.headers['x-userid']
