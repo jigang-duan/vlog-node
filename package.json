@@ -27,6 +27,7 @@
     "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "ci": "midway-bin cov --ts",
-    "build": "midway-bin build -c"
+    "build": "midway-bin build -c",
+    "start_build": "npm run build && NODE_ENV=development midway-bin dev"
   }
 }
