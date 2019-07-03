@@ -34,7 +34,7 @@ export class DB {
         host: config.host,
         port: config.port,
         timezone: '+08:00',
-        logging: true,
+        logging: false,
         operatorsAliases: false,
       },
     );

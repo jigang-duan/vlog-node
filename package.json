@@ -1,5 +1,5 @@
 {
-  "name": "demo-sequelize-typescript",
+  "name": "vlog-node",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,22 @@
     "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "ci": "midway-bin cov --ts",
-    "build": "midway-bin build -c",
-    "start_build": "npm run build && NODE_ENV=development midway-bin dev"
+    "build": "midway-bin build -c"
+  },
+  "midway-bin-build": {
+    "include": [
+      "app/public",
+      "app/view",
+      "lib/platform/*/api.json",
+      "lib/*.json",
+      "lib/*.text",
+      [
+        "pattern/**",
+        "!pattern/**/*.js"
+      ]
+    ]
+  },
+  "midway-server-options": {
+    "typescript": true
   }
 }
