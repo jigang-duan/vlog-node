@@ -55,12 +55,12 @@ export class MultipartController {
       ctx.body =defaultColors;
     } else if (colors.length >= 2) {
       ctx.body = [
-        { color: `#${colors[0].color}` },
-        { color: `#${colors[1].color}80` }
+        { color: `${colors[0]}` },
+        { color: `${colors[1]}80` }
       ];
     } else if (colors.length === 1) {
       ctx.body = [
-        { color: `#${colors[0].color}` },
+        { color: `${colors[0]}` },
         { color: '#FFFFFF80' }
       ];
     }

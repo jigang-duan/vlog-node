@@ -1,13 +1,9 @@
-import * as thmclrx from 'thmclrx';
+import * as getColors from 'get-image-colors';
+import * as path from 'path';
+import { URL } from 'url';
 
-export function getColor(sourceImage): Promise<Array<any>> {
-  return new Promise((resolve, reject) => {
-    thmclrx.octree(sourceImage, (err, colors) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(colors)
-      }
-    })
-  });
+export async function getColor(sourceImage): Promise<Array<any>> {
+  const url = new URL(sourceImage)
+  const colors = await getColors(path.join(__dirname, '..', 'app', url.pathname))
+  return colors.map(color => color.hex());
 }
