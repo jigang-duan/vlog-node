@@ -15,8 +15,8 @@
     "sequelize-typescript": "^0.6.6"
   },
   "devDependencies": {
-    "midway-bin": "1",
-    "midway-demo-lib": "1"
+    "midway-bin": "^1.5.6",
+    "midway-demo-lib": "^1.0.2"
   },
   "engines": {
     "node": ">=8.9.0"
