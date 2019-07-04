@@ -9,10 +9,10 @@ module.exports = (appInfo: any) => {
 
   config.sequelize = {
     host: 'localhost',
-    port: '8889',
+    port: '3306',
     user: 'root',
     password: 'root',
-    database: 'vlog_dev',
+    database: 'vlog',
     dialect: 'mysql',
   };
 

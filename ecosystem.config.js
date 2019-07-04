@@ -18,7 +18,7 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'node',
+      user : 'root',
       host : 'vlog.jigangduan.xyz',
       ref  : 'origin/master',
       repo : 'https://github.com/jigang-duan/vlog-node.git',
