@@ -44,7 +44,7 @@ export class MultipartController {
     const url = ctx.query.url;
     const defaultColors = [
       { color: '#FFFFFF' },
-      { color: '#FFFFFF80' }
+      { color: '#FFFFFF' }
     ];
     if (!url) {
       ctx.body =defaultColors;
@@ -55,13 +55,13 @@ export class MultipartController {
       ctx.body =defaultColors;
     } else if (colors.length >= 2) {
       ctx.body = [
-        { color: `${colors[0]}` },
-        { color: `${colors[1]}80` }
+        { color: colors[0] },
+        { color: colors[1] }
       ];
     } else if (colors.length === 1) {
       ctx.body = [
-        { color: `${colors[0]}` },
-        { color: '#FFFFFF80' }
+        { color: colors[0] },
+        { color: '#FFFFFF' }
       ];
     }
   }

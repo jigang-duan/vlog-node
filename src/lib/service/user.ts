@@ -14,7 +14,7 @@ export class UserService implements IUserService {
   async create(openId: string): Promise<string> {
     const model = await this.UserModel
       .scope('avaliable')
-      .findByPrimary(openId, {
+      .findByPk(openId, {
         attributes: ['id'],
       });
 

@@ -59,19 +59,19 @@ export class UserModel extends Model<UserModel> {
   language: string;
 
   @Column({
-    type: INTEGER(255),
+    type: STRING(32),
     comment: '国家',
   })
   country: string;
 
   @Column({
-    type: INTEGER(255),
+    type: STRING(64),
     comment: '城市',
   })
   city: string;
 
   @Column({
-    type: INTEGER(255),
+    type: STRING(64),
     comment: '省',
   })
   province: string;

@@ -32,7 +32,7 @@ export class PostService implements IPostService {
   async find(id: number): Promise<IPostResult> {
     return this.PostModel
     .scope('avaliable')
-    .findByPrimary(id, {
+    .findByPk(id, {
       attributes: ['id', 'title', 'postContent', 'createdTime', 'modifiedTime'],
     });
   }

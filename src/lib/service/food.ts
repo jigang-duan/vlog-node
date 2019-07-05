@@ -42,7 +42,7 @@ export class FoodService implements IFoodService {
   async addItem(id: number, options: IFoodItemAddOptions): Promise<number> {
     const food = await this.FoodModel
       .scope('avaliable')
-      .findByPrimary(id);
+      .findByPk(id);
     const item = this.FoodItemModel.build(options);
     await item.save();
     await food.$add('items', item);
@@ -52,7 +52,7 @@ export class FoodService implements IFoodService {
   async removeItem(id: number, itemId: number): Promise<boolean> {
     const food = await this.FoodModel
       .scope('avaliable')
-      .findByPrimary(id);
+      .findByPk(id);
     await food.$remove('items', itemId)
     const softDeleteResult = await this.FoodItemModel
       .scope('avaliable')
@@ -68,7 +68,7 @@ export class FoodService implements IFoodService {
   async addComment(id: number, options: IFoodCommentAddOptions): Promise<number> {
     const food = await this.FoodModel
       .scope('avaliable')
-      .findByPrimary(id);
+      .findByPk(id);
     const comment = this.CommentModel.build(options);
     await comment.save();
     await food.$add('comments', comment);
@@ -78,7 +78,7 @@ export class FoodService implements IFoodService {
   async removeComment(id: number, commentId: number): Promise<boolean> {
     const food = await this.FoodModel
       .scope('avaliable')
-      .findByPrimary(id);
+      .findByPk(id);
     await food.$remove('comments', commentId)
     const softDeleteResult = await this.CommentModel
       .scope('avaliable')
@@ -94,7 +94,7 @@ export class FoodService implements IFoodService {
   async find(id: number): Promise<IFoodResult> {
     return this.FoodModel
     .scope('avaliable')
-    .findByPrimary(id);
+    .findByPk(id);
   }
 
   async list(options: IFoodListOptions): Promise<IFoodListResult> {
