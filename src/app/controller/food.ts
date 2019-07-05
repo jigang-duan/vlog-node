@@ -16,7 +16,7 @@ const addItemRule = {
   type: 'string',
   title: 'string',
   desc: { type: 'string', required: false },
-  imageUrl: 'string',
+  imageUrl: { type: 'string', required: false },
   vid: { type: 'string', required: false },
   videoUrl: { type: 'string', required: false },
 };
