@@ -7,6 +7,15 @@ module.exports = (appInfo: any) => {
   // add your config here
   config.middleware = [];
 
+  // config.sequelize = {
+  //   host: 'localhost',
+  //   port: '8889',
+  //   user: 'root',
+  //   password: 'root',
+  //   database: 'vlog_dev',
+  //   dialect: 'mysql',
+  // };
+
   config.sequelize = {
     host: 'localhost',
     port: '3306',

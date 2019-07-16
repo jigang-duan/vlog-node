@@ -17,6 +17,11 @@ Vlog-Life 服务端，基于[midway.js](https://midwayjs.org/midway/) 实现的 
 
 > 需要先启动数据库，创建 vlog 数据库 
 
+修改 src/config.default.ts 中配置：
+
+- 数据库信息
+- 微信 appId 和 appSecret
+
 ### 运行
 
 ```bash
